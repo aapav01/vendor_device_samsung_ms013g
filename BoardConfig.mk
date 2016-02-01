@@ -3,9 +3,9 @@
 # Product-specific compile-time definitions.
 #
 
-ifeq ($(TARGET_ARCH),)
+DEVICE_PATH := device/samsung/ms013g
+
 TARGET_ARCH := arm
-endif
 
 BOARD_USES_GENERIC_AUDIO := true
 USE_CAMERA_STUB := false
@@ -23,7 +23,7 @@ TARGET_HAS_QC_KERNEL_SOURCE := true
 TARGET_HAVE_HDMI_OUT := false
 TARGET_USES_OVERLAY := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-TARGET_NO_BOOTLOADER := false
+TARGET_NO_BOOTLOADER := true
 TARGET_NO_KERNEL := false
 TARGET_NO_RADIOIMAGE := true
 TARGET_NO_RPC := true
@@ -45,6 +45,9 @@ BOARD_KERNEL_BASE        := 0x00000000
 BOARD_KERNEL_PAGESIZE    := 2048
 BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET     := 0x02000000
+
+# Custom RIL class
+BOARD_RIL_CLASS := ../../../$(DEVICE_PATH)/ril
 
 # Enables Adreno RS driver
 #OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
@@ -83,7 +86,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
 # Add NON-HLOS files for ota upgrade
-ADD_RADIO_FILES ?= true
+ADD_RADIO_FILES ?= false
 
 # Added to indicate that protobuf-c is supported in this build
 PROTOBUF_SUPPORTED := false

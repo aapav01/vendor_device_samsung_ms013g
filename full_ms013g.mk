@@ -14,19 +14,18 @@
 # limitations under the License.
 #
 
-# This contains the module build definitions for the hardware-specific
-# components for this device.
-#
-# As much as possible, those components should be built unconditionally,
-# with device-specific names to avoid collisions, to avoid device-specific
-# bitrot and build breakages. Building a component unconditionally does
-# *not* include it on all devices, so it is safe even with hardware-specific
-# components.
+# Sample: This is where we'd set a backup provider if we had one
+# $(call inherit-product, device/sample/products/backup_overlay.mk)
 
-ifneq ($(filter ms013g, $(TARGET_DEVICE)),)
+# Inherit from the common Open Source product configuration
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
-LOCAL_PATH := $(call my-dir)
+PRODUCT_NAME := full_ms013g
+PRODUCT_DEVICE := ms013g
+PRODUCT_BRAND := Android
+PRODUCT_MODEL := AOSP on ms013g
+PRODUCT_MANUFACTURER := samsung
+PRODUCT_RESTRICT_VENDOR_FILES := true
 
-include $(call all-makefiles-under,$(LOCAL_PATH))
-
-endif
+$(call inherit-product, device/samsung/ms013g/device.mk)
+$(call inherit-product-if-exists, vendor/samsung/ms013g/device-vendor.mk)
